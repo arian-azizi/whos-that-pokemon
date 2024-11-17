@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/whos-that-pokemon/static/css/main.395ac249.css",
-    "main.js": "/whos-that-pokemon/static/js/main.8592d14f.js",
+    "main.js": "/whos-that-pokemon/static/js/main.b0e9b555.js",
     "index.html": "/whos-that-pokemon/index.html",
     "main.395ac249.css.map": "/whos-that-pokemon/static/css/main.395ac249.css.map",
-    "main.8592d14f.js.map": "/whos-that-pokemon/static/js/main.8592d14f.js.map"
+    "main.b0e9b555.js.map": "/whos-that-pokemon/static/js/main.b0e9b555.js.map"
   },
   "entrypoints": [
     "static/css/main.395ac249.css",
-    "static/js/main.8592d14f.js"
+    "static/js/main.b0e9b555.js"
   ]
 }
