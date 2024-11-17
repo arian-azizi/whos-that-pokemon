@@ -40,7 +40,7 @@ function App() {
       const win = (
         <>
           <p>You caught a {pokemon.name.toUpperCase()}!</p>
-          <img src={pokemon.sprites.other['offical-artwork'].front_default} id="img-win" alt={pokemon.name} />
+          <img src={pokemon['sprites']['other']['official-artwork']['front_default']} id="img-win" alt={pokemon.name} />
         </>
       )
       setRevealPokemon(win)
