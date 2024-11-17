@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from './components/Header'
 import Guess from './components/Guess'
 import Clues from './components/Clues'
@@ -21,7 +21,7 @@ function App() {
   }
 
   const fetchPokemon = () => {
-    const startAudio = new Audio('../assets/game-start.mp3')
+    const startAudio = new Audio(`${process.env.PUBLIC_URL}/assets/game-start.mp3`)
     startAudio.play()
 
     const maxPokemonIndex = 386
@@ -36,7 +36,7 @@ function App() {
 
   const guessPokemon = () => {
     if (guessInput.toUpperCase() === pokemon.name.toUpperCase()) {
-      const winAudio = new Audio('./assets/game-win.mp3')
+      const winAudio = new Audio(`${process.env.PUBLIC_URL}/assets/game-win.mp3`)
       const win = (
         <>
           <p>You caught a {pokemon.name.toUpperCase()}!</p>
@@ -64,11 +64,11 @@ function App() {
     } else if (guessNum === 1) {
       newClues.push(<p key={guessNum}>My name starts with {pokemon.name[0].toUpperCase()}!</p>)
     } else if (guessNum === 0) {
-      const loseAudio = new Audio('../assets/game-lose.mp3')
+      const loseAudio = new Audio(`${process.env.PUBLIC_URL}/assets/game-lose.mp3`)
       const lose = (
         <>
           <p>The wild {pokemon.name.toUpperCase()} ran away...</p>
-          <img src="../assets/pokeball.png" id="img-lose" alt="Pokeball" width="315" height="315" />
+          <img src={`${process.env.PUBLIC_URL}/assets/pokeball.png`} id="img-lose" alt="Pokeball" width="315" height="315" />
         </>
       )
       setRevealPokemon(lose)
