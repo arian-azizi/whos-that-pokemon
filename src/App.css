@@ -1,38 +1,97 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-color: #3c5aa6;
+  font-family: 'Press Start 2P';
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.logo {
+  display: grid;
+  justify-items: center;
+  margin-top: 64px;
+  margin-bottom: 64px;
+  animation-name: logo-animation;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@keyframes logo-animation {
+  50% {filter: drop-shadow(0 0 2rem rgb(255, 217, 0))}
 }
 
-.App-link {
-  color: #61dafb;
+.game-container {
+  position: relative;
+  padding: 16px;
+  outline: 4px solid #ffcb05;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+section {
+  display: grid;
+  justify-items: center;
+  padding: 16px;
+}
+
+input[type=text] {
+  font-size: 24px;
+  font-weight: bold;
+  border: none;
+  padding: 16px;
+  font-family: 'Press Start 2P';
+}
+
+input[type=button] {
+  background-color: #ffcb05;
+  font-size: 24px;
+  font-weight: bold;
+  border: none;
+  padding: 16px;
+  font-family: 'Press Start 2P';
+}
+
+input[type=submit] {
+  background-color: #ffcb05;
+  font-size: 24px;
+  font-weight: bold;
+  border: none;
+  padding: 16px;
+  font-family: 'Press Start 2P';
+}
+
+input[input=button]:hover, button:hover {
+  background-color: 4px solid #ffcd05db;
+}
+
+p {
+  color: #FFFFFF;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#img-win {
+  position: relative;
+  animation-name: img-win-animation;
+  animation-duration: 0.5s;
+  animation-iteration-count: 3;
+}
+
+@keyframes img-win-animation {
+  25% {top: 16px}
+  50% {top: 32px}
+  75% {top: 16px}
+}
+
+#img-lose {
+  position: relative;
+  animation-name: img-lose-animation;
+  animation-duration: 0.5s;
+  animation-iteration-count: 3;
+}
+
+@keyframes img-lose-animation {
+  25% {left: 16px}
+  50% {left: 0px}
+  75% {right: 16px}
+  100% {right: 0px}
 }
