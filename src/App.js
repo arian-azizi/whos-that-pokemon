@@ -14,8 +14,13 @@ function App() {
   const [revealPokemon, setRevealPokemon] = useState(null)
   const [gameStarted, setGameStarted] = useState(false)
   const [gameEnded, setGameEnded] = useState(false)
+  const [selectedGens, setSelectedGens] = useState({gen1: true, gen2: true, gen3: true})
 
   const startGame = () => {
+    if (!selectedGens.gen1 && !selectedGens.gen2 && !selectedGens.gen3) {
+      alert('Please select at least one Pokemon generation to play!')
+      return
+    }
     setGameStarted(true)
     fetchPokemon()
   }
@@ -24,14 +29,26 @@ function App() {
     const startAudio = new Audio(`${process.env.PUBLIC_URL}/assets/game-start.mp3`)
     startAudio.play()
 
-    const maxPokemonIndex = 386
-    const minPokemonIndex = 1
-    const pokemonId = Math.floor(Math.random() * (maxPokemonIndex - minPokemonIndex + 1) + minPokemonIndex)
+    const genRanges =[]
+    if (selectedGens.gen1) genRanges.push([1, 151])
+    if (selectedGens.gen2) genRanges.push([152, 251])
+    if (selectedGens.gen3) genRanges.push([252, 386])
+
+    const selectedRange = genRanges[Math.floor(Math.random() * genRanges.length)]
+    const pokemonId = Math.floor(Math.random() * (selectedRange[1] - selectedRange[0] + 1) + selectedRange[0])
 
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
     .then(response => response.json())
     .then(json => setPokemon(json))
     .catch(error => console.log(error))
+  }
+
+  const handleGenChange = (event) => {
+    const { name, checked } = event.target
+    setSelectedGens(prevState => ({
+      ...prevState,
+      [name]: checked
+    }))
   }
 
   const guessPokemon = () => {
@@ -87,9 +104,19 @@ function App() {
     <div className="App">
       <Header />
       {!gameStarted ? (
-        <section>
-        <input type="button" onClick={startGame} value="Start Game"></input>        
-        </section>
+        <div>
+          <div className="gen-select">
+              <input type="checkbox" id="gen1" name="gen1" checked={selectedGens.gen1} onChange={handleGenChange}/>
+              <label htmlFor="gen1">Gen 1</label>
+              <input type="checkbox" id="gen2" name="gen2" checked={selectedGens.gen2} onChange={handleGenChange}/>
+              <label htmlFor="gen2">Gen 2</label>
+              <input type="checkbox" id="gen3" name="gen3" checked={selectedGens.gen3} onChange={handleGenChange}/>
+              <label htmlFor="gen3">Gen 3</label>
+          </div>     
+          <section>
+            <input type="button" onClick={startGame} value="Start Game"/>        
+          </section>
+        </div>
       ) : (
       <main className='game-container'>
         <Reveal revealPokemon={revealPokemon} />
