@@ -8,6 +8,7 @@ import './App.css';
 function App() {
 
   const [pokemon, setPokemon] = useState('')
+  const [species, setSpecies] = useState('')
   const [guessInput, setGuessInput] = useState('')
   const [guessNum, setGuessNum] = useState(4)
   const [clues, setClues] = useState([])
@@ -40,6 +41,11 @@ function App() {
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
     .then(response => response.json())
     .then(json => setPokemon(json))
+    .catch(error => console.log(error))
+
+    fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`)
+    .then(response => response.json())
+    .then(json => setSpecies(json))
     .catch(error => console.log(error))
   }
 
@@ -74,12 +80,14 @@ function App() {
       const type = pokemon.types.map(t => t.type.name).join(' and ')
       newClues.push(<p key={guessNum}>I am a {type} type Pokemon!</p>)
     } else if (guessNum === 3) {
-      const gen = pokemon.id <= 151 ? 1 : pokemon.id <= 251 ? 2 : 3
-      newClues.push(<p key={guessNum}>I am from Generation {gen}!</p>)
+      const color = species.color.name
+      newClues.push(<p key={guessNum}>I am {color}!</p>)
     } else if (guessNum === 2) {
-      newClues.push(<p key={guessNum}>My ID in the National Pokedex is #{pokemon.id}!</p>)
+      const genus = species.genera[7].genus
+      newClues.push(<p key={guessNum}>I am regarded as a {genus}!</p>)
     } else if (guessNum === 1) {
-      newClues.push(<p key={guessNum}>My name starts with {pokemon.name[0].toUpperCase()}!</p>)
+      const firstLetter = pokemon.name[0].toUpperCase()
+      newClues.push(<p key={guessNum}>My name starts with {firstLetter}!</p>)
     } else if (guessNum === 0) {
       const loseAudio = new Audio(`${process.env.PUBLIC_URL}/assets/game-lose.mp3`)
       const lose = (
